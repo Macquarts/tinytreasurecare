@@ -20,8 +20,6 @@ import {
 
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Logo } from './Logo';
-import NavBar from './components/navbar';
-import Footer from './components/footer';
 import HomePage from './pages/home';
 
 
