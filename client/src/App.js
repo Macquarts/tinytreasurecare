@@ -18,15 +18,16 @@ import {
 } from "react-router-dom";
 
 
-import { ColorModeSwitcher } from './ColorModeSwitcher';
+import {ColorModeSwitcher} from './ColorModeSwitch';
 import { Logo } from './Logo';
+import AboutPage from './pages/about';
 import HomePage from './pages/home';
 import NavBar from './components/navbar';
 import Footer from './components/footer';
 
 
 
-export default App;
+
 
 function App() {
   return (
@@ -48,3 +49,6 @@ function App() {
     </ChakraProvider>
   );
 }
+
+
+export default App;

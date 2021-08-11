@@ -22,7 +22,7 @@ import {
               </Text>{' '}
             </Heading>
             <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.500'}>
-              We care like you do. 
+              A platform that lets parents meet carers and carers find families. 
             </Text>
             <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
               <Button
