@@ -44,10 +44,10 @@ import {
                 ].map(item => {
                   return (
                     <Card
-                      bg={experienceYears == item.value ? 'red' : '#fff'}
-                      borderWidth={experienceYears == item.value ? 0 : 1}
-                      borderColor={experienceYears == item.value ? '#fff' : 'red'}
-                      textColor={experienceYears == item.value ? '#fff' : '#000'}
+                      bg={experienceYears === item.value ? 'red' : '#fff'}
+                      borderWidth={experienceYears === item.value ? 0 : 1}
+                      borderColor={experienceYears === item.value ? '#fff' : 'red'}
+                      textColor={experienceYears === item.value ? '#fff' : '#000'}
                       name={item.label}
                       onClick={() => props.onExperienceSelect(item.value)}
                     />
@@ -68,9 +68,9 @@ import {
             return (
               <Card
                 bg={ageType == item.value ? 'red' : '#fff'}
-                borderWidth={ageType == item.value ? 0 : 1}
-                borderColor={ageType == item.value ? '#fff' : 'red'}
-                textColor={ageType == item.value ? '#fff' : '#000'}
+                borderWidth={ageType === item.value ? 0 : 1}
+                borderColor={ageType === item.value ? '#fff' : 'red'}
+                textColor={ageType === item.value ? '#fff' : '#000'}
                 name={item.label}
                 onClick={() => props.onAgeSelect(item.value)}
               />
