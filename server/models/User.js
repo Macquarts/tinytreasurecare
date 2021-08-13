@@ -21,6 +21,28 @@ const userSchema = new Schema(
         type: {
             type: String,
         },
+        careType: {
+            type: String,
+        },
+        timeType: {
+            type: String
+        },
+        experienceYears: {
+            type: String
+        },
+        firstName: {
+            type: String
+        },
+        lastName: {
+            type: String
+        },
+        zipcode: {
+            type: String
+        },
+        type: {
+            type: String,
+        }
+        
     },
     {
         toJSON: {
