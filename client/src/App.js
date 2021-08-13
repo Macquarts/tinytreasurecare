@@ -18,7 +18,7 @@ import {
 } from "react-router-dom";
 
 
-import {ColorModeSwitcher} from './ColorModeSwitch';
+import { ColorModeSwitcher } from './ColorModeSwitch';
 import { Logo } from './Logo';
 import AboutPage from './pages/about';
 import HomePage from './pages/home';
