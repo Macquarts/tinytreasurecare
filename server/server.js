@@ -8,7 +8,6 @@ const { authMiddleware } = require("./shared/auth");
 const expressServer = express();
 const PORT = process.env.PORT || 3001;
 
-mongodb+srv://dbUSER:ClUsTeR9@cluster0.vih1l.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
