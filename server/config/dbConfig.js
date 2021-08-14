@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
 
 mongoose.connect(
-  process.env.MONGODB_URI || "mongodb+srv://care:care@cluster0.956go.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-  {
+  process.env.MONGODB_URI || "mongodb://localhost:27017/project3",
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,

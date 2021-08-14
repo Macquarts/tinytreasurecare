@@ -36,14 +36,14 @@ expressServer.use(express.json());
 
 // To server everything as a single app we are using static file serving 
 if (process.env.NODE_ENV === "production") {
-  const buildPath = path.join(__dirname, '../ui/build');
+  const buildPath = path.join(__dirname, '../client/build');
   expressServer.use(express.static(buildPath));
 }
 
 
 // navigate here when user loads URL
 expressServer.get("*", function (req, res) {
-  res.sendFile(path.resolve(__dirname, '../ui/build', 'index.html'));
+  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
 })
 
 
