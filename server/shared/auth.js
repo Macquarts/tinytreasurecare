@@ -16,7 +16,6 @@ module.exports = {
     if (!token) {
       return req;
     }
-    console.log('auth middleware stage');
     // Verify tokens validity and get the token data
     try {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });

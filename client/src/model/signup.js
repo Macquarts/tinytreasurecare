@@ -1,14 +1,14 @@
 const parentObject = {
-    careType: "CARER",
+    careType: "NANNIES",
     expectedTime: "now",
     criteria: {
         carerExperience: "3",
         carerGoodwith: "twotofiveyears",
-        postcode: "6000"
+        pincode: "02453"
     },
-    firstName: "Harry",
-    lastName: "Potter",
-    email: "harrypotter@gmail.com",
+    firstName: "Murali",
+    lastName: "Elumalai",
+    email: "muralismail4u@gmail.com",
     password: "123456",
     type: "PARENT"
 

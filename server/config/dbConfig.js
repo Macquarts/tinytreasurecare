@@ -1,12 +1,13 @@
-const mongoose =require('mongoose');
+const mongoose = require("mongoose");
 
 mongoose.connect(
-    process.env.MONGODB_URI || 'mongodb://localhost/tinytreasurecare',
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
-    },
-  );
-  module.exports =mongoose.connection;
+  process.env.MONGODB_URI || "mongodb+srv://care:care@cluster0.956go.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  }
+);
+
+module.exports = mongoose.connection;

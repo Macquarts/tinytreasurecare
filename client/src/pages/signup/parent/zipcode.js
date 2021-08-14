@@ -9,7 +9,7 @@ import {
   Stack,
 } from '@chakra-ui/react';
 
-export default function ParentSignupInput(props) {
+export default function ZipCode(props) {
   return (
     <>
       <Container>
@@ -20,7 +20,7 @@ export default function ParentSignupInput(props) {
           alignItems="center"
         >
           <Button
-            onClick={() => props.onChangeStep('zipcode')}
+            onClick={() => props.onChangeStep('careCriteria')}
             colorScheme="blue"
             size="sm"
             marginRight="9"
@@ -29,24 +29,24 @@ export default function ParentSignupInput(props) {
           </Button>
 
           <Heading size="lg" marginBottom="10">
-            Create a free account to see caregivers who match your needs?
+            Ok, let's confirm where you need care.
+            <br />
           </Heading>
         </Stack>
-        ALL registration inputs here:
-        <Box paddingY={4}>
-          <Grid templateColumns="repeat(2, 1fr)" gap={6}>
-            <Input placeholder="First name" size="md" />
-            <Input placeholder="Last name" size="md" />
-            <Input placeholder="email" size="md" />
-            <Input placeholder="password" size="md" />
-          </Grid>
+        Enter you zip:
+        <Box w="100%" p={4} color="black">
+          <Input
+            maxLength={6}
+            type="number"
+            placeholder="Enter you post code"
+          />
         </Box>
-        <Box paddingY={4}>
+        <Box w="100%" p={4} color="black">
           <Button onClick={() => props.onSubmit()} colorScheme="blue">
-            SUBMIT
+            Next
           </Button>
         </Box>
-      </Container>
+        </Container>
     </>
   );
 }

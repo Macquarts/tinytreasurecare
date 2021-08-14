@@ -14,16 +14,16 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link as RouteLink
-} from "react-router-dom";
+  Link as RouteLink,
+  Redirect,
+} from 'react-router-dom';
 
-
-import { ColorModeSwitcher } from './ColorModeSwitch';
+import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Logo } from './Logo';
-import AboutPage from './pages/about';
-import HomePage from './pages/home';
 import NavBar from './components/navbar';
 import Footer from './components/footer';
+import HomePage from './pages/home';
+import AboutPage from './pages/about';
 import SignUpPage from './pages/signup/signup';
 import ParentSignup from './pages/signup/parent/parentSignup';
 import CarerSignup from './pages/signup/carer/carerSignup';
@@ -34,10 +34,14 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import SearchCarers from './pages/search/searchcarers';
+import SidebarWithHeader from './components/sidebar-with-header';
+import SearchJobs from './pages/search/searchjobs';
+import Dashboard from './components/dashboard';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
-  uri: 'https://url',
+  uri: '/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -55,40 +59,58 @@ const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
-
-
-
+let authorized = true;
 
 function App() {
+  const SecuredRoute = ({ render: Component, ...rest }) => (
+    <Route
+      {...rest}
+      render={props =>
+        authorized ? <Component {...props} /> : <Redirect to="/signup" />
+      }
+    />
+  );
   return (
     <ChakraProvider theme={theme}>
-      <Router>
-        <NavBar />
-        <Switch>
-          <Route path="/about">
-            <AboutPage></AboutPage>
-          </Route>
-        
-          <Route path="/">
-            <HomePage></HomePage>
-          </Route>
-          <Route path="/signup">
-            <SignUpPage></SignUpPage>
-          </Route>
-          <Route path="/parent-signup">
-            <ParentSignup />
-            <Route path="/carer-signup">
-            <CarerSignup />
-          </Route>
-          <Route path="/"></Route>
-          </Route>
-          
-        </Switch>
-      </Router>
+      <ApolloProvider client={client}>
+        <Router>
+        <Route path={['/', '/about', '/signup', '/parent-signup', 'carer-signup']} exact component={NavBar} />
 
+          <Switch>
+            <Route path="/about">
+              <AboutPage></AboutPage>
+            </Route>
+            <Route path="/signup">
+              <SignUpPage></SignUpPage>
+            </Route>
+            <Route path="/parent-signup">
+              <ParentSignup />
+            </Route>
+            <Route path="/carer-signup">
+              <CarerSignup />
+            </Route>
+            <Route path="/dashboard">
+                <Dashboard />
+            </Route>
+            <SecuredRoute
+              path="/searchcarers"
+              name="SearchCarers"
+              render={props => <SearchCarers />}
+            />
+            <SecuredRoute
+              path="/searchjobs"
+              name="SearchJobs"
+              render={props => <SearchJobs />}
+            />
+            <Route exact path="/">
+              <HomePage></HomePage>
+            </Route>
+            
+          </Switch>
+        </Router>
+      </ApolloProvider>
     </ChakraProvider>
   );
 }
-
 
 export default App;
