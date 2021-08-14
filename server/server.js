@@ -8,29 +8,18 @@ const { authMiddleware } = require("./shared/auth");
 const expressServer = express();
 const PORT = process.env.PORT || 3001;
 
-const apolloServer = new ApolloServer({
-  typeDefs,
-  resolvers,
-  context: authMiddleware,
-});
+async function startApollo() {
+  const apolloServer = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: authMiddleware,
+  });
+  await apolloServer.start();
 
+  apolloServer.applyMiddleware({ app: expressServer });
 
-// // mongoose.connect('mongodb://localhost:27017/project3');
-
-// // const DB= 'mongodb+srv://dbUSER:ClUsTeR9@cluster0.vih1l.mongodb.net/project3?retryWrites=true&w=majority';
-
-// // mongoose.connect(DB, {
-
-// //   userNewUrlParser:true,
-// //   useCreateIndex:true,
-// //   useUnifiedTopology:true,
-// //   useFindAndModify:false,
-// // }).then (() => {
-// //   console.log(`connection successful`);
-// // }).catch ((error)=> console.log(`connection not made`));
-
-apolloServer.applyMiddleware({ app: expressServer });
-
+}
+startApollo();
 expressServer.use(express.urlencoded({ extended: true }));
 expressServer.use(express.json());
 
@@ -51,21 +40,5 @@ db.once("open", () => {
   expressServer.listen(PORT, () =>
     console.log(`Now listening on localhost:${PORT}`)
   );
-  console.log(
-    `Use GraphQL at http://localhost:${PORT}${apolloServer.graphqlPath}`
-  );
+  
 });
-
-
-// / const mongoose =require('mongoose');
-// const express = require("express");
-// const path = require("path");
-// const db = require("./config/connection");
-// const { ApolloServer } = require("apollo-server-express");
-// const { typeDefs, resolvers } = require("./schemas");
-// const { authMiddleware } = require("./shared/auth");
-
-
-
-
-
