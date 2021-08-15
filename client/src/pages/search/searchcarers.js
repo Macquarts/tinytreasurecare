@@ -101,7 +101,7 @@ function Card(props) {
           color={useColorModeValue('gray.700', 'gray.400')}
           px={3}
         >
-          I would like to do <strong>{careType}</strong> Job. I am available{' '}
+          I would like to do <strong>{careType}</strong> Job. I am/will be available{' '}
           <strong>{timeType}</strong>.
           {experienceYears != 'ANY' &&
             `I have ${experienceYears}

@@ -26,7 +26,11 @@ import { useHistory } from 'react-router-dom';
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
   // const history = useHistory();
+  const history = useHistory();
 
+  const gotoHome = () => {
+    history.replace('/');
+  }
   return (
     <Box>
       <Flex
@@ -55,10 +59,12 @@ export default function WithSubnavigation() {
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
+
           <Text
             textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
             fontFamily={'heading'}
             color={useColorModeValue('gray.800', 'white')}
+            onClick={gotoHome}
           >
             Tiny Treasure Care
           </Text>
@@ -268,6 +274,5 @@ const NAV_ITEMS = [
     label: 'About',
     href: '/about',
   },
-
-
+  
 ];

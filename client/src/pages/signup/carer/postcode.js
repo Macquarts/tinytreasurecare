@@ -29,7 +29,7 @@ import {
             </Button>
   
             <Heading size="lg" marginBottom="10">
-              Please enter your location postcode.
+              Please enter your postcode.
               <br />
             </Heading>
           </Stack>
@@ -38,7 +38,7 @@ import {
             <Input
               maxLength={6}
               type="number"
-              placeholder="Enter you post code"
+              placeholder="Enter your postcode"
               onChange={e => {
                 props.onChangePostCode(e.target.value);
               }}

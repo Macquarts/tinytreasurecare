@@ -1,11 +1,4 @@
 
-
-
-
-
-
-
-
 import {
     Container,
     SimpleGrid,
@@ -40,7 +33,7 @@ import {
             </Button>
   
             <Heading size="lg" marginBottom="10">
-              Create a free account with us to see what jobs are available for you
+              Create a free account with us to see what jobs are available
             </Heading>
 
           </Stack>

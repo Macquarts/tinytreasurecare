@@ -35,8 +35,8 @@ import {
           <Grid templateColumns="repeat(3, 1fr)" gap={6}>
             {[
               { value: 'Available Immediately', label: 'Available Immediately' },
-              { value: 'WEEK', label: 'In a Week' },
-              { value: 'MONTH', label: 'In a Month' },
+              { value: 'IN A WEEK', label: 'In a Week' },
+              { value: 'IN A MONTH', label: 'In a Month' },
               
             ].map(item => {
               return (

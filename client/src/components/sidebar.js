@@ -172,12 +172,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
       </Text>
 
       <HStack spacing={{ base: '0', md: '6' }}>
-        {/* <IconButton
-          size="lg"
-          variant="ghost"
-          aria-label="open menu"
-          icon={<FiBell />}
-        /> */}
+      
         <Flex alignItems={'center'}>
           <Menu>
             <MenuButton
@@ -212,10 +207,6 @@ const MobileNav = ({ onOpen, ...rest }) => {
               bg={useColorModeValue('white', 'gray.900')}
               borderColor={useColorModeValue('gray.200', 'gray.700')}
             >
-              {/* <MenuItem>Profile</MenuItem>
-              <MenuItem>Settings</MenuItem>
-              <MenuItem>Billing</MenuItem> */}
-              {/* <MenuDivider /> */}
               <MenuItem
                 onClick={() => {
                   localStorage.clear();
