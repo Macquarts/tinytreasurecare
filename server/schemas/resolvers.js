@@ -1,6 +1,6 @@
-const { AuthenticationError } = require("apollo-server-express");
-const { User, JobPost } = require("../models");
-const { signToken } = require("../shared/auth");
+const { AuthenticationError } = require('apollo-server-express');
+const { User, JobPost } = require('../models');
+const { signToken } = require('../shared/auth');
 
 const resolvers = {
   Query: {
@@ -16,41 +16,69 @@ const resolvers = {
       return userList;
     },
     getCarerDetail: async (parent, args, context) => {
-      const carerDetail = await User.findById(args[0].id); 
+      const carerDetail = await User.findById(args[0].id);
       return carerDetail;
     },
     getCarers: async (parent, args, context) => {
-      const carerList =await User.find();
-      return carerList;  
+      const carerList = await User.find({ type: 'CARER' });
+      return carerList;
     },
     getSentRequests: async (parent, args, context) => {
       console.log(context.user);
-      if(!context.user) {
-        throw new AuthenticationError("Something went wrong");
+      if (!context.user) {
+        throw new AuthenticationError('Something went wrong');
       }
 
-      const sentRequests = await JobPost.find({parentId: context.user._id});
+      const sentRequests = await JobPost.find({
+        parentId: context.user._id,
+      }).populate('carerId');
       console.log(sentRequests);
       return sentRequests;
     },
     getRecievedRequests: async (parent, args, context) => {
       console.log(context.user);
-      if(!context.user) {
-        throw new AuthenticationError("Something went wrong");
+      if (!context.user) {
+        throw new AuthenticationError('Something went wrong');
       }
 
-      const recievedRequests = await JobPost.find({carerId: context.user._id});
+      const recievedRequests = await JobPost.find({
+        carerId: context.user._id,
+      }).populate('parentId');
       console.log(recievedRequests);
       return recievedRequests;
-    }
-
+    },
   },
   Mutation: {
-    addUser: async (parent, { username, email, password }) => {
-      const user = await User.create({ username, email, password });
+    addUser: async (
+      parent,
+      {
+        firstName,
+        lastName,
+        email,
+        password,
+        type,
+        ageType,
+        careType,
+        timeType,
+        zipCode,
+        experienceYears,
+      }
+    ) => {
+      const user = await User.create({
+        firstName,
+        lastName,
+        email,
+        password,
+        type,
+        ageType,
+        careType,
+        timeType,
+        zipCode,
+        experienceYears,
+      });
 
       if (!user) {
-        throw new AuthenticationError("Something is wrong");
+        throw new AuthenticationError('Something is wrong');
       }
       const token = signToken(user);
       return { token, user };
@@ -65,32 +93,39 @@ const resolvers = {
       const correctPassword = await user.isCorrectPassword(password);
 
       if (!correctPassword) {
-        throw new AuthenticationError("Wrong password!");
+        throw new AuthenticationError('Wrong password!');
       }
 
       const token = signToken(user);
 
       return { token, user };
     },
-    sendJobRequest: async (parent,{carerId}, context) => {
-      console.log("User context",context.user, carerId);
-      if(!context.user) {
-        throw new AuthenticationError("Something went wrong");
+    sendJobRequest: async (parent, { carerId }, context) => {
+      console.log('User context', context.user, carerId);
+      if (!context.user) {
+        throw new AuthenticationError('Something went wrong');
       }
-      const jobPost = await JobPost.create({carerId: carerId, parentId: context.user._id, jobStatus: "PENDING"});
+      const jobPost = await JobPost.create({
+        carerId: carerId,
+        parentId: context.user._id,
+        jobStatus: 'PENDING',
+      });
       console.log(jobPost);
 
       return jobPost;
     },
-    updateJobRequest: async (parent, {jobId, jobStatus}) => {
+    updateJobRequest: async (parent, { jobId, jobStatus }) => {
       console.log(jobId, jobStatus);
-      if(!context.user) {
-        throw new AuthenticationError("Something went wrong");
+      if (!context.user) {
+        throw new AuthenticationError('Something went wrong');
       }
-      return {_id: jobId, carerId: context.user._id, parentId: "782368",  jobStatus}
-    }
-
-    
+      return {
+        _id: jobId,
+        carerId: context.user._id,
+        parentId: '782368',
+        jobStatus,
+      };
+    },
   },
 };
 
