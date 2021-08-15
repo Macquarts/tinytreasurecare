@@ -91,7 +91,8 @@ import {
             { value: 'First Aid Certfication', label: 'First Aid Certification' },
             { value: 'Working With Children Check', label: 'Working With Children Check' },
             {value: 'Child Care Certificate/Diploma', label: 'Child Care Certificate/Diploma'},
-            {value:'Working with Children with Special Needs', label:'Working with Children with Speical Needs'}
+            {value:'Working with Children with Special Needs', label:'Working with Children with Speical Needs'},
+            {value:'All the Above Certificates'},
           ].map(item => {
             console.log(skillsandqualifications)
 

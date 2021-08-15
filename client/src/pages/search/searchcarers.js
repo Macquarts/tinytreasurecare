@@ -34,6 +34,7 @@ function Card(props) {
     careType,
     timeType,
     experienceYears,
+    skillsandqualifications,
     _id,
   } = carer;
   const [sendJobRequest] = useMutation(SEND_JOB_REQUEST);
@@ -102,7 +103,8 @@ function Card(props) {
           px={3}
         >
           I would like to do <strong>{careType}</strong> Job. I am/will be available{' '}
-          <strong>{timeType}</strong>.
+          <strong>{timeType}</strong>. I have qualifications such as
+          <strong>{skillsandqualifications}</strong>.
           {experienceYears != 'ANY' &&
             `I have ${experienceYears}
           years of experience and `}

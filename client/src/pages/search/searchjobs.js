@@ -27,6 +27,7 @@ function Card(props) {
     careType,
     timeType,
     experienceYears,
+    skillsandqualifications,
     _id,
   } = props.data.parentId || {};
   const jobId = props.data._id
@@ -92,7 +93,7 @@ function Card(props) {
         >
           I am looking for <strong>{careType}</strong> {timeType} with
           experience of <strong>{experienceYears}</strong>
-          years would be able to take care of <strong>{ageType}</strong>
+          years would be able to take care of <strong>{ageType}</strong>I have all certificates required for childcare<strong>{skillsandqualifications}</strong>
         </Text>
         <Stack mt={8} direction={'row'} spacing={4}>
          {jobStatus != "CANCELLED" && jobStatus != "REJECTED" && jobStatus != "APPROVED" ? <> <Button
