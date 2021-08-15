@@ -1,27 +1,26 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require('mongoose');
 
 const jobPostSchema = new Schema(
-    {
-        parentId: {
-            type: String
-        },
-        carerId: {
-            type: String
-        }, 
-        jobStatus: {
-            type: String, // PENDING, REJECTED, ACCEPTED
-
-        }
-        
+  {
+    parentId: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
     },
-    {
-        toJSON: {
-            virtuals: true,
-        },
-    }
+    carerId: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    },
+    jobStatus: {
+      type: String, // PENDING, REJECTED, ACCEPTED
+    },
+  },
+  {
+    toJSON: {
+      virtuals: true,
+    },
+  }
 );
 
+const JobPost = model('JobPost', jobPostSchema);
 
-const JobPost = model("JobPost", jobPostSchema);
-
-module.exports = JobPost
+module.exports = JobPost;
