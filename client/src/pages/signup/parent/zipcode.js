@@ -33,12 +33,16 @@ export default function ZipCode(props) {
             <br />
           </Heading>
         </Stack>
-        Enter you zip:
+        Enter your zip:
         <Box w="100%" p={4} color="black">
           <Input
             maxLength={6}
             type="number"
             placeholder="Enter you post code"
+            onChange={e => {
+              props.onChangeZipCode(e.target.value);
+            }}
+            value={props.zipCode}
           />
         </Box>
         <Box w="100%" p={4} color="black">
@@ -46,7 +50,7 @@ export default function ZipCode(props) {
             Next
           </Button>
         </Box>
-        </Container>
+      </Container>
     </>
   );
 }

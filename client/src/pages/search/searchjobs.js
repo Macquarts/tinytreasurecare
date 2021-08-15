@@ -12,10 +12,38 @@ import {
   useColorModeValue,
   Grid,
   Container,
+  Spinner,
 } from '@chakra-ui/react';
 import SidebarWithHeader from '../../components/sidebar-with-header';
+import { GET_CARERS, GET_RECEIVED_REQUESTS } from '../../utils/queries';
+import { useMutation, useQuery } from '@apollo/client';
+import { SEND_JOB_REQUEST } from '../../utils/mutations';
 
-function Card() {
+function Card(props) {
+  const {
+    firstName,
+    lastName,
+    ageType,
+    careType,
+    timeType,
+    experienceYears,
+    _id,
+  } = props.data.parentId || {};
+  const [sendJobRequest] = useMutation(SEND_JOB_REQUEST);
+
+  const handleSubmit = async () => {
+    try {
+      const { data } = await sendJobRequest({
+        variables: {
+          carerId: _id,
+        },
+      });
+      console.log(data);
+      // usethis data to login User and store token in local storage
+    } catch (error) {
+      console.log('ERROR OCCURRED SHOW ALERT FOR ERROR', error);
+    }
+  };
   return (
     <Center py={6}>
       <Box
@@ -48,50 +76,20 @@ function Card() {
           }}
         />
         <Heading fontSize={'2xl'} fontFamily={'body'}>
-          Lindsey James
+          {firstName}
         </Heading>
         <Text fontWeight={600} color={'gray.500'} mb={4}>
-          @lindsey_jam3s
+          {lastName}
         </Text>
         <Text
           textAlign={'center'}
           color={useColorModeValue('gray.700', 'gray.400')}
           px={3}
         >
-          Actress, musician, songwriter and artist. PM for work inquires or{' '}
-          <Link href={'#'} color={'blue.400'}>
-            #tag
-          </Link>{' '}
-          me in your posts
+          I am looking for <strong>{careType}</strong> {timeType} with
+          experience of <strong>{experienceYears}</strong>
+          years would be able to take care of <strong>{ageType}</strong>
         </Text>
-
-        <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
-          <Badge
-            px={2}
-            py={1}
-            bg={useColorModeValue('gray.50', 'gray.800')}
-            fontWeight={'400'}
-          >
-            #art
-          </Badge>
-          <Badge
-            px={2}
-            py={1}
-            bg={useColorModeValue('gray.50', 'gray.800')}
-            fontWeight={'400'}
-          >
-            #photography
-          </Badge>
-          <Badge
-            px={2}
-            py={1}
-            bg={useColorModeValue('gray.50', 'gray.800')}
-            fontWeight={'400'}
-          >
-            #music
-          </Badge>
-        </Stack>
-
         <Stack mt={8} direction={'row'} spacing={4}>
           <Button
             flex={1}
@@ -108,8 +106,9 @@ function Card() {
             _focus={{
               bg: 'blue.500',
             }}
+            onClick={handleSubmit}
           >
-            Reject
+            Approve
           </Button>
           <Button
             flex={1}
@@ -126,22 +125,43 @@ function Card() {
             _focus={{
               bg: 'blue.500',
             }}
+            onClick={handleSubmit}
           >
-            Approve
+            Not Interest
           </Button>
         </Stack>
       </Box>
     </Center>
   );
 }
-export default function SocialProfileSimple() {
+export default function SearchJobs() {
+  const { loading, error, data } = useQuery(GET_RECEIVED_REQUESTS);
+  const { getRecievedRequests } = data || [];
+  console.log('data 123', data);
+  if (loading)
+    return (
+      <Center h="90vh">
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="blue.500"
+          size="xl"
+        />
+      </Center>
+    );
+  if (error) return `Error! ${error.message}`;
+  if (data) {
+    console.log('data 1234', data);
+  }
+
   return (
-      <Container maxW="container.xl">
-        <Grid templateColumns="repeat(3, 1fr)" gap={6}>
-          {[1, 2, 3, 4].map(() => (
-            <Card />
-          ))}
-        </Grid>
-      </Container>
+    <Container maxW="container.xl">
+      <Grid templateColumns="repeat(3, 1fr)" gap={6}>
+        {getRecievedRequests.map(data => (
+          <Card data={data} />
+        ))}
+      </Grid>
+    </Container>
   );
 }

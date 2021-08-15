@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Heading,
   Avatar,
@@ -14,19 +14,12 @@ import {
   Container,
   Spinner,
 } from '@chakra-ui/react';
-import SidebarWithHeader from '../../components/sidebar-with-header';
-import { GET_CARERS } from '../../utils/queries';
+import SidebarWithHeader from '../components/sidebar-with-header';
+import { GET_SENT_REQUESTS } from '../utils/queries';
 import { useMutation, useQuery } from '@apollo/client';
-import { SEND_JOB_REQUEST } from '../../utils/mutations';
+import { SEND_JOB_REQUEST } from '../utils/mutations';
 
 function Card(props) {
-  const {
-    carer,
-    submitLoading,
-    setSubmitLoading,
-    setSubmitId,
-    submitId,
-  } = props;
   const {
     firstName,
     lastName,
@@ -35,25 +28,19 @@ function Card(props) {
     timeType,
     experienceYears,
     _id,
-  } = carer;
+  } = props.data.carerId || {};
   const [sendJobRequest] = useMutation(SEND_JOB_REQUEST);
 
-  const handleSubmit = async id => {
+  const handleSubmit = async () => {
     try {
-      setSubmitId(id);
-      setSubmitLoading(true);
       const { data } = await sendJobRequest({
         variables: {
-          carerId: id,
+          carerId: _id,
         },
       });
-      if (data) {
-        setSubmitLoading(false);
-      }
+      console.log(data);
       // usethis data to login User and store token in local storage
     } catch (error) {
-      setSubmitLoading(false);
-
       console.log('ERROR OCCURRED SHOW ALERT FOR ERROR', error);
     }
   };
@@ -107,48 +94,34 @@ function Card(props) {
           I can care for <strong>{ageType}</strong>.
         </Text>
         <Stack mt={8} direction={'row'} spacing={4}>
-          {submitLoading && submitId == _id ? (
-            <Center width="full">
-              <Spinner
-                thickness="4px"
-                speed="0.65s"
-                emptyColor="gray.200"
-                color="blue.500"
-                size="xl"
-              />
-            </Center>
-          ) : (
-            <Button
-              flex={1}
-              fontSize={'sm'}
-              rounded={'full'}
-              bg={'blue.400'}
-              color={'white'}
-              boxShadow={
-                '0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
-              }
-              _hover={{
-                bg: 'blue.500',
-              }}
-              _focus={{
-                bg: 'blue.500',
-              }}
-              onClick={() => handleSubmit(_id)}
-            >
-              Request
-            </Button>
-          )}
+          <Button
+            flex={1}
+            fontSize={'sm'}
+            rounded={'full'}
+            bg={'blue.400'}
+            color={'white'}
+            boxShadow={
+              '0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
+            }
+            _hover={{
+              bg: 'blue.500',
+            }}
+            _focus={{
+              bg: 'blue.500',
+            }}
+            onClick={handleSubmit}
+          >
+            Cancel Request
+          </Button>
         </Stack>
       </Box>
     </Center>
   );
 }
-export default function SearchCarers() {
-  const { loading, error, data } = useQuery(GET_CARERS);
-  const [submitLoading, setSubmitLoading] = useState(false);
-  const [submitId, setSubmitId] = useState(false);
-
-  const { getCarers } = data || [];
+export default function MyRequests() {
+  const { loading, error, data } = useQuery(GET_SENT_REQUESTS);
+  const { getSentRequests } = data || [];
+  console.log('data 123', data);
   if (loading)
     return (
       <Center h="90vh">
@@ -162,18 +135,15 @@ export default function SearchCarers() {
       </Center>
     );
   if (error) return `Error! ${error.message}`;
+  if (data) {
+    console.log('data 1234', data);
+  }
 
   return (
     <Container maxW="container.xl">
       <Grid templateColumns="repeat(3, 1fr)" gap={6}>
-        {getCarers.map(carer => (
-          <Card
-            carer={carer}
-            submitLoading={submitLoading}
-            setSubmitLoading={setSubmitLoading}
-            submitId={submitId}
-            setSubmitId={setSubmitId}
-          />
+        {getSentRequests.map(data => (
+          <Card data={data} />
         ))}
       </Grid>
     </Container>

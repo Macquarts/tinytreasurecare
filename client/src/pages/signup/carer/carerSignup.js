@@ -1,70 +1,177 @@
-import {
-  Flex,
-  Box,
-  FormControl,
-  FormLabel,
-  Input,
-  Checkbox,
-  Stack,
-  Link,
-  Button,
-  Heading,
-  Text,
-  useColorModeValue,
-} from '@chakra-ui/react';
+import { Container, SimpleGrid, Box, Button } from '@chakra-ui/react';
+import { useState } from 'react';
 
-export default function SimpleCard() {
+// components
+import CareCriteria from './careCriteria';
+import CareType from './caretype';
+import ExpectedTime from './expectedTime';
+import ParentSignupInput from './signupInput';
+import ZipCode from './zipcode';
+import { useHistory } from 'react-router-dom';
+
+// graphql
+import { ADD_USER } from '../../../utils/mutations';
+import { useMutation } from '@apollo/client';
+
+export default function CarerSignUp() {
+  const history = useHistory();
+  const [currentStep, setcurrentStep] = useState('careType');
+  const [careType, setCareType] = useState('');
+  const [timeType, setTimeType] = useState('');
+  const [ageType, setAgeType] = useState('');
+  const [experienceYears, setExperienceYears] = useState('');
+  const [zipCode, setZipCode] = useState('');
+  const [userInfo, setUserInfo] = useState('');
+  const [addUser] = useMutation(ADD_USER);
+
+  const parentObject = {
+    careType: 'NANNIES',
+    expectedTime: 'now',
+    criteria: {
+      carerExperience: '3',
+      carerGoodwith: 'twotofiveyears',
+      pincode: '02453',
+    },
+    firstName: 'Murali',
+    lastName: 'Elumalai',
+    email: 'muralismail4u@gmail.com',
+    password: '123456',
+    type: 'PARENT',
+  };
+
+  const handleCareTypeSelect = careType => {
+    // alert(careType);
+    setCareType(careType);
+    console.log(careType);
+    setcurrentStep('expectedTime');
+    console.log(currentStep);
+  };
+
+  const handleTimeTypeSelect = timeType => {
+    // alert(timeType);
+    setTimeType(timeType);
+    setcurrentStep('careCriteria');
+  };
+
+  const handleAgeSelect = toddlerAge => {
+    // alert(toddlerAge);
+    setAgeType(toddlerAge);
+  };
+
+  const handleExperienceSelect = experience => {
+    // alert(experience);
+    setExperienceYears(experience);
+  };
+
+  const onCareCriteriaSubmit = () => {
+    // alert('on next select');
+    setcurrentStep('zipcode');
+  };
+
+  const onZipCodeSubmit = zipcode => {
+    // alert('on next select');
+    setcurrentStep('parent-signup');
+  };
+  const onChangeStep = step => {
+    setcurrentStep(step);
+  };
+
+  const handleChange = (name, value) => {
+    setUserInfo({ ...userInfo, [name]: value });
+  };
+  const onChangeZipCode = value => {
+    setZipCode(value);
+  };
+  const onParentSignUpSubmit = async () => {
+    alert('on next select');
+    const { firstName, lastName, email, password } = userInfo || {};
+
+    try {
+      const { data } = await addUser({
+        variables: {
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          password: password,
+          type: 'CARER',
+          careType: careType,
+          timeType: timeType,
+          ageType: ageType,
+          experienceYears: experienceYears,
+          zipCode: zipCode,
+
+          // add remaining data from form
+        },
+      });
+      if (data) {
+        localStorage.setItem('authToken', data.addUser.token);
+        localStorage.setItem('userType', data.addUser.user.type);
+        localStorage.setItem('firstName', data.loginUser.user.firstName);
+
+        history.push('/dashboard/myjobs');
+      }
+      console.log(data);
+      // usethis data to login User and store token in local storage
+    } catch (error) {
+      console.log('ERROR OCCURRED SHOW ALERT FOR ERROR', error);
+    }
+  };
+
+  function renderSwitch() {
+    console.log('rendercalled', currentStep);
+    console.log('zipCode', zipCode);
+
+    if (currentStep === 'expectedTime') {
+      console.log('ifcondition', careType);
+      return (
+        <ExpectedTime
+          onTimeTypeSelect={handleTimeTypeSelect}
+          value={timeType}
+          onChangeStep={onChangeStep}
+        />
+      );
+    } else if (currentStep === 'careCriteria') {
+      return (
+        <CareCriteria
+          value={{ experienceYears: experienceYears, ageType: ageType }}
+          onSubmit={onCareCriteriaSubmit}
+          onAgeSelect={handleAgeSelect}
+          onExperienceSelect={handleExperienceSelect}
+          onChangeStep={onChangeStep}
+        />
+      );
+    } else if (currentStep === 'zipcode') {
+      return (
+        <ZipCode
+          onSubmit={onZipCodeSubmit}
+          onChangeStep={onChangeStep}
+          onChangeZipCode={onChangeZipCode}
+          zipCode={zipCode}
+        />
+      );
+    } else if (currentStep == 'parent-signup') {
+      return (
+        <ParentSignupInput
+          onSubmit={onParentSignUpSubmit}
+          onChangeStep={onChangeStep}
+          handleChange={handleChange}
+          userInfo={userInfo}
+        />
+      );
+    } else {
+      return (
+        <CareType
+          onCareTypeSelect={handleCareTypeSelect}
+          onChangeStep={onChangeStep}
+          value={careType}
+        />
+      );
+    }
+  }
+
   return (
-    <Flex
-      minH={'100vh'}
-      align={'center'}
-      justify={'center'}
-      bg={useColorModeValue('gray.50', 'gray.800')}
-    >
-      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-        <Stack align={'center'}>
-          <Heading fontSize={'4xl'}>Sign up</Heading>
-          <Text fontSize={'lg'} color={'gray.600'}>
-            to enjoy all of our cool <Link color={'blue.400'}>features</Link> ✌️
-          </Text>
-        </Stack>
-        <Box
-          rounded={'lg'}
-          bg={useColorModeValue('white', 'gray.700')}
-          boxShadow={'lg'}
-          p={8}
-        >
-          <Stack spacing={4}>
-            <FormControl id="email">
-              <FormLabel>Email address</FormLabel>
-              <Input type="email" />
-            </FormControl>
-            <FormControl id="password">
-              <FormLabel>Password</FormLabel>
-              <Input type="password" />
-            </FormControl>
-            <Stack spacing={10}>
-              {/* <Stack
-                direction={{ base: 'column', sm: 'row' }}
-                align={'start'}
-                justify={'space-between'}
-              >
-                <Checkbox>Remember me</Checkbox>
-                <Link color={'blue.400'}>Forgot password?</Link>
-              </Stack> */}
-              <Button
-                bg={'blue.400'}
-                color={'white'}
-                _hover={{
-                  bg: 'blue.500',
-                }}
-              >
-                Sign Up
-              </Button>
-            </Stack>
-          </Stack>
-        </Box>
-      </Stack>
-    </Flex>
+    <>
+      <Container>{renderSwitch()}</Container>
+    </>
   );
 }

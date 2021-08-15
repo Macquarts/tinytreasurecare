@@ -38,14 +38,15 @@ import SearchCarers from './pages/search/searchcarers';
 import SidebarWithHeader from './components/sidebar-with-header';
 import SearchJobs from './pages/search/searchjobs';
 import Dashboard from './components/dashboard';
+import SignIn from './pages/signin';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
-  uri: '/graphql',
+  uri: 'http://localhost:3001/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('id_token');
+  const token = localStorage.getItem('authToken');
 
   return {
     headers: {
@@ -59,27 +60,44 @@ const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
-let authorized = true;
 
 function App() {
-  const SecuredRoute = ({ render: Component, ...rest }) => (
-    <Route
-      {...rest}
-      render={props =>
-        authorized ? <Component {...props} /> : <Redirect to="/signup" />
-      }
-    />
-  );
+  const SecuredRoute = ({ render: Component, ...rest }) => {
+    const token = localStorage.getItem('authToken');
+    return (
+      <Route
+        {...rest}
+        render={props =>
+          token ? <Component {...props} /> : <Redirect to="/" />
+        }
+      />
+    );
+  };
   return (
     <ChakraProvider theme={theme}>
       <ApolloProvider client={client}>
         <Router>
-        <Route path={['/', '/about', '/signup', '/parent-signup', 'carer-signup']} exact component={NavBar} />
+          <Route
+            path={[
+              '/',
+              '/about',
+              '/signup',
+              '/parent-signup',
+              '/carer-signup',
+              '/signin',
+            ]}
+            exact
+            component={NavBar}
+          />
 
           <Switch>
             <Route path="/about">
               <AboutPage></AboutPage>
             </Route>
+            <Route path="/signin">
+              <SignIn></SignIn>
+            </Route>
+
             <Route path="/signup">
               <SignUpPage></SignUpPage>
             </Route>
@@ -89,9 +107,12 @@ function App() {
             <Route path="/carer-signup">
               <CarerSignup />
             </Route>
-            <Route path="/dashboard">
-                <Dashboard />
-            </Route>
+
+            <SecuredRoute
+              path="/dashboard"
+              name="dashboard"
+              render={props => <Dashboard {...props} />}
+            />
             <SecuredRoute
               path="/searchcarers"
               name="SearchCarers"
@@ -105,7 +126,6 @@ function App() {
             <Route exact path="/">
               <HomePage></HomePage>
             </Route>
-            
           </Switch>
         </Router>
       </ApolloProvider>

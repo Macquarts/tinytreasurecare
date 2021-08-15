@@ -13,6 +13,7 @@ const typeDefs = gql`
     zipCode: String!
     experienceYears: String!
   }
+
   type JobPost {
     _id: String
     parentId: String!
@@ -25,6 +26,7 @@ const typeDefs = gql`
     carerId: String!
     jobStatus: String!
   }
+
   type Query {
     me: User
     getUsers: [User]
@@ -33,6 +35,7 @@ const typeDefs = gql`
     getSentRequests: [JobPost]
     getRecievedRequests: [JobsReceived]
   }
+
   type Auth {
     token: ID!
     user: User
@@ -41,6 +44,7 @@ const typeDefs = gql`
     _id: String
     jobStatus: String
   }
+  
   type Mutation {
     loginUser(
       email: String!
