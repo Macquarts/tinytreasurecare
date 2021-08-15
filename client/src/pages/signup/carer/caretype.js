@@ -21,64 +21,31 @@ import {
       <>
         <Container>
           <Heading size="lg" marginBottom="10">
-            What kind of care you are offering?
+            Please indicate the type of care
           </Heading>
           <Grid templateColumns="repeat(3, 1fr)" gap={6}>
-            {/* <Box
-              w="100%"
-              h="20"
-              bg="blue.500"
-              onClick={() => props.onCareTypeSelect('NANNIES')}
-            >
-              Nannies & Baby Sitters
-            </Box>
-            <Box
-              w="100%"
-              h="20"
-              bg="blue.500"
-              onClick={() => props.onCareTypeSelect('TUTORING')}
-            >
-              Tutoring and lessons
-            </Box>
-            <Box
-              w="100%"
-              h="20"
-              bg="blue.500"
-              onClick={() => props.onCareTypeSelect('DAYCARE')}
-            >
-              Daycare Centers
-            </Box> */}
+            
             {[
               {
-                value: 'Nannies & Baby Sitters',
-                label: 'Nannies & Baby Sitters',
+                value: ' Baby Sitting',
+                label: 'Baby Sitting',
               },
-              { value: 'Tutoring and lessons', label: 'Tutoring and lessons' },
-              { value: 'Daycare Centers', label: 'Daycare Centers' },
+              { value: 'Nanny', label: 'Nanny' },
+              { value: 'Au-Pair', label: 'Au-Pair' },
+              { value: 'All', label: 'All'},
             ].map(item => {
               return (
                 <Card
-                  bg={props.value == item.value ? 'red' : '#fff'}
-                  borderWidth={props.value == item.value ? 0 : 1}
-                  borderColor={props.value == item.value ? '#fff' : 'red'}
-                  textColor={props.value == item.value ? '#fff' : '#000'}
+                  bg={props.value === item.value ? 'red' : '#fff'}
+                  borderWidth={props.value === item.value ? 0 : 1}
+                  borderColor={props.value === item.value ? '#fff' : 'red'}
+                  textColor={props.value === item.value ? '#fff' : '#000'}
                   name={item.label}
                   onClick={() => props.onCareTypeSelect(item.value)}
                 />
               );
             })}
-            {/* <Card
-              name=" Nannies & Baby Sitters"
-              onClick={() => props.onCareTypeSelect('NANNIES')}
-            />
-            <Card
-              name=" Tutoring and lessons"
-              onClick={() => props.onCareTypeSelect('NANNIES')}
-            />
-            <Card
-              name="Daycare Centers"
-              onClick={() => props.onCareTypeSelect('NANNIES')}
-            /> */}
+            
           </Grid>
         </Container>
       </>

@@ -9,7 +9,7 @@ import {
   Stack,
 } from '@chakra-ui/react';
 
-export default function ZipCode(props) {
+export default function PostCode(props) {
   return (
     <>
       <Container>
@@ -33,16 +33,16 @@ export default function ZipCode(props) {
             <br />
           </Heading>
         </Stack>
-        Enter your zip:
+        Enter your postcode:
         <Box w="100%" p={4} color="black">
           <Input
             maxLength={6}
             type="number"
-            placeholder="Enter you post code"
+            placeholder="Enter your postcode"
             onChange={e => {
-              props.onChangeZipCode(e.target.value);
+              props.onChangePostCode(e.target.value);
             }}
-            value={props.zipCode}
+            value={props.postCode}
           />
         </Box>
         <Box w="100%" p={4} color="black">

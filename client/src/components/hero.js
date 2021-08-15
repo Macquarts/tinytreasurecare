@@ -9,7 +9,7 @@ import {
   } from '@chakra-ui/react';
   import SidebarWithHeader from './sidebar-with-header';
 
-
+  import heroimage from '../images/heropic.jpg'
   export default function HeroSection() {
     return (
      
@@ -26,23 +26,17 @@ import {
             <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.500'}>
               A platform that lets parents meet carers and carers find families. 
             </Text>
-            <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
-              <Button
-                rounded={'full'}
-                bg={'blue.400'}
-                color={'white'}
-                _hover={{
-                  bg: 'blue.500',
-                }}>
-                Parents
-              </Button>
-              <Button rounded={'full'}>Carers</Button>
-            </Stack>
           </Stack>
         </Flex>
 
         <Flex flex={1}> 
-          
+        <Image
+              alt={'Login Image'}
+              objectFit={'cover'}
+              src={
+                heroimage
+              }
+            />
 </Flex>
 
       </Stack>

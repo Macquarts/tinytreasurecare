@@ -14,7 +14,7 @@ export default function SignUpPage() {
   const history = useHistory();
 
   const handleClick = type => {
-    if (type == 'parent') {
+    if (type === 'parent') {
       history.push('/parent-signup');
     } else {
       history.push('/carer-signup');
@@ -40,7 +40,7 @@ export default function SignUpPage() {
                 I need a Carer{' '}
               </Text> */}
               <Button onClick={() => handleClick('parent')} colorScheme="blue">
-                Find Carer
+                Find Carers
               </Button>
             </Box>
             <Box w="100%" py={4} color="black">

@@ -40,7 +40,7 @@ export default function SimpleCard() {
         localStorage.setItem('firstName', data.loginUser.user.firstName);
 
         if (localStorage.getItem('authToken')) {
-          data.loginUser.user.type == 'PARENT'
+          data.loginUser.user.type ==='PARENT'
             ? history.push('/dashboard/carers')
             : history.push('/dashboard/my-jobs');
         }

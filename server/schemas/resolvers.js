@@ -59,8 +59,9 @@ const resolvers = {
         type,
         ageType,
         careType,
+        skillsandqualificationsType,
         timeType,
-        zipCode,
+        postCode,
         experienceYears,
       }
     ) => {
@@ -72,8 +73,9 @@ const resolvers = {
         type,
         ageType,
         careType,
+        skillsandqualificationsType,
         timeType,
-        zipCode,
+        postCode,
         experienceYears,
       });
 

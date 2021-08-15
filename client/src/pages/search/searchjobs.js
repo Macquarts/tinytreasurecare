@@ -17,7 +17,7 @@ import {
 import SidebarWithHeader from '../../components/sidebar-with-header';
 import { GET_CARERS, GET_RECEIVED_REQUESTS } from '../../utils/queries';
 import { useMutation, useQuery } from '@apollo/client';
-import { SEND_JOB_REQUEST } from '../../utils/mutations';
+import { SEND_JOB_REQUEST, UPDATE_JOB_REQUEST } from '../../utils/mutations';
 
 function Card(props) {
   const {
@@ -29,13 +29,16 @@ function Card(props) {
     experienceYears,
     _id,
   } = props.data.parentId || {};
-  const [sendJobRequest] = useMutation(SEND_JOB_REQUEST);
+  const jobId = props.data._id
+  const jobStatus = props.data.jobStatus
+  const [updateJobRequest] = useMutation(UPDATE_JOB_REQUEST);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (status) => {
     try {
-      const { data } = await sendJobRequest({
+      const { data } = await updateJobRequest({
         variables: {
-          carerId: _id,
+        jobId:jobId,
+        jobStatus: status 
         },
       });
       console.log(data);
@@ -45,9 +48,10 @@ function Card(props) {
     }
   };
   return (
-    <Center py={6}>
+    <Center py={2}>
       <Box
         maxW={'320px'}
+        height={'440px'}
         w={'full'}
         bg={useColorModeValue('white', 'gray.900')}
         boxShadow={'2xl'}
@@ -79,7 +83,7 @@ function Card(props) {
           {firstName}
         </Heading>
         <Text fontWeight={600} color={'gray.500'} mb={4}>
-          {lastName}
+          {lastName} 
         </Text>
         <Text
           textAlign={'center'}
@@ -91,7 +95,7 @@ function Card(props) {
           years would be able to take care of <strong>{ageType}</strong>
         </Text>
         <Stack mt={8} direction={'row'} spacing={4}>
-          <Button
+         {jobStatus != "CANCELLED" && jobStatus != "REJECTED" && jobStatus != "APPROVED" ? <> <Button
             flex={1}
             fontSize={'sm'}
             rounded={'full'}
@@ -106,7 +110,7 @@ function Card(props) {
             _focus={{
               bg: 'blue.500',
             }}
-            onClick={handleSubmit}
+            onClick={()=> handleSubmit("APPROVED")}
           >
             Approve
           </Button>
@@ -125,10 +129,22 @@ function Card(props) {
             _focus={{
               bg: 'blue.500',
             }}
+            onClick={()=>handleSubmit("REJECTED")}
+          >
+            Not Interested
+          </Button></>: <Button
+            flex={1}
+            fontSize={'sm'}
+            rounded={'full'}
+            bg={'green.400'}
+            color={'white'}
+          disabled 
+            
             onClick={handleSubmit}
           >
-            Not Interest
-          </Button>
+           {jobStatus}  
+          </Button>} 
+         
         </Stack>
       </Box>
     </Center>
@@ -158,9 +174,9 @@ export default function SearchJobs() {
   return (
     <Container maxW="container.xl">
       <Grid templateColumns="repeat(3, 1fr)" gap={6}>
-        {getRecievedRequests.map(data => (
+        {getRecievedRequests.length>0? getRecievedRequests.map(data => (
           <Card data={data} />
-        ))}
+        )): <Text>No requests right now. check back later</Text>}
       </Grid>
     </Container>
   );

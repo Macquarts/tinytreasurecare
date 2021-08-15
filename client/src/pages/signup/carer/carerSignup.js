@@ -6,7 +6,7 @@ import CareCriteria from './careCriteria';
 import CareType from './caretype';
 import ExpectedTime from './expectedTime';
 import ParentSignupInput from './signupInput';
-import ZipCode from './zipcode';
+import PostCode from './postcode';
 import { useHistory } from 'react-router-dom';
 
 // graphql
@@ -20,24 +20,12 @@ export default function CarerSignUp() {
   const [timeType, setTimeType] = useState('');
   const [ageType, setAgeType] = useState('');
   const [experienceYears, setExperienceYears] = useState('');
-  const [zipCode, setZipCode] = useState('');
+  const[skillsandqualifications, setskillsandqualifications] = useState('');
+  const [postCode, setPostCode] = useState('');
   const [userInfo, setUserInfo] = useState('');
   const [addUser] = useMutation(ADD_USER);
 
-  const parentObject = {
-    careType: 'NANNIES',
-    expectedTime: 'now',
-    criteria: {
-      carerExperience: '3',
-      carerGoodwith: 'twotofiveyears',
-      pincode: '02453',
-    },
-    firstName: 'Murali',
-    lastName: 'Elumalai',
-    email: 'muralismail4u@gmail.com',
-    password: '123456',
-    type: 'PARENT',
-  };
+
 
   const handleCareTypeSelect = careType => {
     // alert(careType);
@@ -63,12 +51,16 @@ export default function CarerSignUp() {
     setExperienceYears(experience);
   };
 
+  const handleskillsandqualificationsSelect = skillsandqualifications => {
+    //alert (skills and qualifications);
+    setskillsandqualifications(skillsandqualifications);
+  };
   const onCareCriteriaSubmit = () => {
     // alert('on next select');
-    setcurrentStep('zipcode');
+    setcurrentStep('postcode');
   };
 
-  const onZipCodeSubmit = zipcode => {
+  const onPostCodeSubmit = postcode => {
     // alert('on next select');
     setcurrentStep('parent-signup');
   };
@@ -79,8 +71,8 @@ export default function CarerSignUp() {
   const handleChange = (name, value) => {
     setUserInfo({ ...userInfo, [name]: value });
   };
-  const onChangeZipCode = value => {
-    setZipCode(value);
+  const onChangePostCode = value => {
+    setPostCode(value);
   };
   const onParentSignUpSubmit = async () => {
     alert('on next select');
@@ -98,7 +90,8 @@ export default function CarerSignUp() {
           timeType: timeType,
           ageType: ageType,
           experienceYears: experienceYears,
-          zipCode: zipCode,
+          skillsandqualifications:skillsandqualifications,
+          postCode: postCode,
 
           // add remaining data from form
         },
@@ -106,7 +99,7 @@ export default function CarerSignUp() {
       if (data) {
         localStorage.setItem('authToken', data.addUser.token);
         localStorage.setItem('userType', data.addUser.user.type);
-        localStorage.setItem('firstName', data.loginUser.user.firstName);
+        localStorage.setItem('firstName', data.addUser.user.firstName);
 
         history.push('/dashboard/myjobs');
       }
@@ -119,7 +112,7 @@ export default function CarerSignUp() {
 
   function renderSwitch() {
     console.log('rendercalled', currentStep);
-    console.log('zipCode', zipCode);
+    console.log('postCode', postCode);
 
     if (currentStep === 'expectedTime') {
       console.log('ifcondition', careType);
@@ -133,23 +126,24 @@ export default function CarerSignUp() {
     } else if (currentStep === 'careCriteria') {
       return (
         <CareCriteria
-          value={{ experienceYears: experienceYears, ageType: ageType }}
+          value={{ experienceYears: experienceYears, ageType: ageType, skillsandqualifications: skillsandqualifications }}
           onSubmit={onCareCriteriaSubmit}
           onAgeSelect={handleAgeSelect}
           onExperienceSelect={handleExperienceSelect}
+          onskillsandqualificationsSelect={handleskillsandqualificationsSelect}
           onChangeStep={onChangeStep}
         />
       );
-    } else if (currentStep === 'zipcode') {
+    } else if (currentStep === 'postcode') {
       return (
-        <ZipCode
-          onSubmit={onZipCodeSubmit}
+        <PostCode
+          onSubmit={onPostCodeSubmit}
           onChangeStep={onChangeStep}
-          onChangeZipCode={onChangeZipCode}
-          zipCode={zipCode}
+          onChangePostCode={onChangePostCode}
+          postCode={postCode}
         />
       );
-    } else if (currentStep == 'parent-signup') {
+    } else if (currentStep === 'parent-signup') {
       return (
         <ParentSignupInput
           onSubmit={onParentSignUpSubmit}
@@ -158,6 +152,7 @@ export default function CarerSignUp() {
           userInfo={userInfo}
         />
       );
+
     } else {
       return (
         <CareType
@@ -174,4 +169,4 @@ export default function CarerSignUp() {
       <Container>{renderSwitch()}</Container>
     </>
   );
-}
+  }

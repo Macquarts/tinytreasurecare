@@ -19,6 +19,9 @@ const userSchema = new Schema(
     careType: {
       type: String,
     },
+    skillsandqualifications:{
+        type: String,
+    },
     timeType: {
       type: String,
     },
@@ -31,7 +34,7 @@ const userSchema = new Schema(
     lastName: {
       type: String,
     },
-    zipcode: {
+    postcode: {
       type: String,
     },
     type: {

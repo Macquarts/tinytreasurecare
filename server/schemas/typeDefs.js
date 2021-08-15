@@ -10,7 +10,8 @@ const typeDefs = gql`
     ageType: String!
     careType: String!
     timeType: String!
-    zipCode: String!
+    skillsandqualifications: String
+    postCode: String!
     experienceYears: String!
   }
 
@@ -44,7 +45,7 @@ const typeDefs = gql`
     _id: String
     jobStatus: String
   }
-  
+
   type Mutation {
     loginUser(
       email: String!
@@ -60,8 +61,9 @@ const typeDefs = gql`
       type: String!
       ageType: String!
       careType: String!
+      skillsandqualifications:String!
       timeType: String!
-      zipCode: String!
+      postCode: String!
       experienceYears: String!
     ): Auth
     sendJobRequest(carerId: String!): JobPostResponse

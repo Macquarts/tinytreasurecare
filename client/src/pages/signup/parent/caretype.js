@@ -39,7 +39,7 @@ import {
             ].map(item => {
               return (
                 <Card
-                  bg={props.value == item.value ? 'red' : '#fff'}
+                  bg={props.value === item.value ? 'red' : '#fff'}
                   borderWidth={props.value === item.value ? 0 : 1}
                   borderColor={props.value === item.value ? '#fff' : 'red'}
                   textColor={props.value === item.value ? '#fff' : '#000'}

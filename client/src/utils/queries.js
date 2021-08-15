@@ -8,6 +8,7 @@ export const GET_CARERS = gql`
       lastName
       email
       careType
+      skillsandqualifications
       ageType
       timeType
       experienceYears
@@ -26,10 +27,12 @@ export const GET_SENT_REQUESTS = gql`
         lastName
         email
         careType
+        skillsandqualifications
         ageType
         timeType
         experienceYears
       }
+      jobStatus
     }
   }
 `;
@@ -45,10 +48,12 @@ export const GET_RECEIVED_REQUESTS = gql`
         lastName
         email
         careType
+        skillsandqualifications
         ageType
         timeType
         experienceYears
       }
+      jobStatus
     }
   }
 `;

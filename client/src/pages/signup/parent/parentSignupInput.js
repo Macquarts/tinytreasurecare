@@ -32,7 +32,7 @@ export default function ParentSignupInput(props) {
           </Button>
 
           <Heading size="lg" marginBottom="10">
-            Create a free account to see caregivers who match your needs?
+            Create a free account to view a list of carers who match your search!
           </Heading>
         </Stack>
         ALL registration inputs here:

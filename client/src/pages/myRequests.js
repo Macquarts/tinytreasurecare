@@ -17,7 +17,7 @@ import {
 import SidebarWithHeader from '../components/sidebar-with-header';
 import { GET_SENT_REQUESTS } from '../utils/queries';
 import { useMutation, useQuery } from '@apollo/client';
-import { SEND_JOB_REQUEST } from '../utils/mutations';
+import { SEND_JOB_REQUEST, UPDATE_JOB_REQUEST } from '../utils/mutations';
 
 function Card(props) {
   const {
@@ -28,14 +28,19 @@ function Card(props) {
     timeType,
     experienceYears,
     _id,
+    email
   } = props.data.carerId || {};
-  const [sendJobRequest] = useMutation(SEND_JOB_REQUEST);
+  const jobStatus = props.data.jobStatus
+  const jobId = props.data._id
+  const [updateJobRequest] = useMutation(UPDATE_JOB_REQUEST);
 
   const handleSubmit = async () => {
+    console.log('submitted');
     try {
-      const { data } = await sendJobRequest({
+      const { data } = await updateJobRequest({
         variables: {
-          carerId: _id,
+            jobId: jobId,
+            jobStatus: 'CANCELLED'
         },
       });
       console.log(data);
@@ -45,8 +50,9 @@ function Card(props) {
     }
   };
   return (
-    <Center py={6}>
+    <Center py={2}>
       <Box
+        height={'440px'}
         maxW={'320px'}
         w={'full'}
         bg={useColorModeValue('white', 'gray.900')}
@@ -78,23 +84,29 @@ function Card(props) {
         <Heading fontSize={'2xl'} fontFamily={'body'}>
           {firstName}
         </Heading>
-        <Text fontWeight={600} color={'gray.500'} mb={4}>
+        <Text fontWeight={600} color={'gray.500'} >
           {lastName}
         </Text>
+ {jobStatus == "APPROVED" ? <Badge variant="solid" colorScheme="green">
+    Contact: {email}
+  </Badge>:  '' }
+        <Stack height={120}>
         <Text
-          textAlign={'center'}
           color={useColorModeValue('gray.700', 'gray.400')}
           px={3}
         >
-          I would like to do <strong>{careType}</strong> Job. I am available{' '}
+          I am able to <strong>{careType}</strong> Carer. I am available{' '}
           <strong>{timeType}</strong>.
-          {experienceYears != 'ANY' &&
+          {experienceYears !== 'ANY' &&
             `I have ${experienceYears}
           years of experience and `}
           I can care for <strong>{ageType}</strong>.
+         
         </Text>
+        </Stack>
+        
         <Stack mt={8} direction={'row'} spacing={4}>
-          <Button
+          {jobStatus=='PENDING' ? <Button
             flex={1}
             fontSize={'sm'}
             rounded={'full'}
@@ -111,8 +123,41 @@ function Card(props) {
             }}
             onClick={handleSubmit}
           >
-            Cancel Request
-          </Button>
+            {jobStatus ==='PENDING' ? 'Cancel Request': 'VIEW'} 
+          </Button>: jobStatus === 'CANCELLED'? <Button
+            flex={1}
+            fontSize={'sm'}
+            rounded={'full'}
+            bg={'red.400'}
+            color={'white'}
+          disabled 
+            
+            onClick={handleSubmit}
+          >
+            CANCELLED 
+          </Button>: jobStatus === "APPROVED" ?  <Button
+            flex={1}
+            fontSize={'sm'}
+            rounded={'full'}
+            bg={'green.400'}
+            color={'white'}
+          disabled 
+            
+            onClick={handleSubmit}
+          >
+            ACCEPTED 
+          </Button>  :<Button
+            flex={1}
+            fontSize={'sm'}
+            rounded={'full'}
+            bg={'red.400'}
+            color={'white'}
+          disabled 
+
+            onClick={handleSubmit}
+          >
+            REJECTED
+          </Button>}
         </Stack>
       </Box>
     </Center>

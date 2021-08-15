@@ -22,8 +22,9 @@ export const ADD_USER = gql`
     $type: String!
     $ageType: String!
     $careType: String!
+    $skillsandqualifications: String!
     $timeType: String!
-    $zipCode: String!
+    $postCode: String!
     $experienceYears: String!
   ) {
     addUser(
@@ -34,14 +35,16 @@ export const ADD_USER = gql`
       type: $type
       ageType: $ageType
       careType: $careType
+      skillsandqualifications: $skillsandqualifications
       timeType: $timeType
-      zipCode: $zipCode
+      postCode: $postCode
       experienceYears: $experienceYears
     ) {
       token
       user {
         _id
         type
+        firstName
       }
     }
   }
@@ -51,6 +54,15 @@ export const SEND_JOB_REQUEST = gql`
   mutation sendJobRequest($carerId: String!) {
     sendJobRequest(carerId: $carerId) {
       _id
+    }
+  }
+`;
+
+export const UPDATE_JOB_REQUEST = gql`
+  mutation updateJobRequest($jobId: String!, $jobStatus: String!) {
+    updateJobRequest(jobId: $jobId, jobStatus: $jobStatus) {
+      _id
+      jobStatus
     }
   }
 `;

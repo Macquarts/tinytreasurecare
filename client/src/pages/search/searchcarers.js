@@ -58,9 +58,10 @@ function Card(props) {
     }
   };
   return (
-    <Center py={6}>
+    <Center py={2}>
       <Box
         maxW={'320px'}
+        height={'440px'}
         w={'full'}
         bg={useColorModeValue('white', 'gray.900')}
         boxShadow={'2xl'}
@@ -94,7 +95,8 @@ function Card(props) {
         <Text fontWeight={600} color={'gray.500'} mb={4}>
           {lastName}
         </Text>
-        <Text
+        <Stack height={120}>
+ <Text
           textAlign={'center'}
           color={useColorModeValue('gray.700', 'gray.400')}
           px={3}
@@ -106,6 +108,8 @@ function Card(props) {
           years of experience and `}
           I can care for <strong>{ageType}</strong>.
         </Text>
+        </Stack>
+       
         <Stack mt={8} direction={'row'} spacing={4}>
           {submitLoading && submitId == _id ? (
             <Center width="full">

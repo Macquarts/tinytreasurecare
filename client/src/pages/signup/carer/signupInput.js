@@ -1,3 +1,11 @@
+
+
+
+
+
+
+
+
 import {
     Container,
     SimpleGrid,
@@ -32,10 +40,11 @@ import {
             </Button>
   
             <Heading size="lg" marginBottom="10">
-              Create a free account to start accepting jobs?
+              Create a free account with us to see what jobs are available for you
             </Heading>
+
           </Stack>
-          ALL registration inputs here:
+          All registration inputs here:
           <Box paddingY={4}>
             <Grid templateColumns="repeat(2, 1fr)" gap={6}>
               <Input

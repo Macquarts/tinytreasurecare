@@ -34,9 +34,9 @@ import {
   
           <Grid templateColumns="repeat(3, 1fr)" gap={6}>
             {[
-              { value: 'Now', label: 'Now' },
-              { value: 'WEEK', label: 'In a Week' },
-              { value: 'MONTH', label: 'In a Month' },
+              { value: 'IMMEDIATELY', label: 'Immediately' },
+              { value: 'IN A WEEK', label: 'In a Week' },
+              { value: 'IN A MONTH', label: 'In a Month' },
             ].map(item => {
               return (
                 <Card
@@ -50,15 +50,6 @@ import {
               );
             })}
   
-            {/* <Box w="100%" h="20" bg="blue.500" onClick={()=>props.onTimeTypeSelect('NOW')}>
-                          Now
-                      </Box>
-                      <Box w="100%" h="20" bg="blue.500" onClick={()=>props.onTimeTypeSelect('WEEK')}>
-                          In A week
-                      </Box>
-                        <Box w="100%" h="20" bg="blue.500" onClick={()=>props.onTimeTypeSelect('MONTH')}>
-                          In a month
-                      </Box> */}
           </Grid>
         </Container>
       </>

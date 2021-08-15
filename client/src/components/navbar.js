@@ -30,14 +30,14 @@ export default function WithSubnavigation() {
   return (
     <Box>
       <Flex
-        bg={useColorModeValue('white', 'gray.800')}
-        color={useColorModeValue('gray.600', 'white')}
+        bg={useColorModeValue('white', 'grey.800')}
+        color={useColorModeValue('grey.600', 'white')}
         minH={'60px'}
         py={{ base: 2 }}
         px={{ base: 4 }}
         borderBottom={1}
         borderStyle={'solid'}
-        borderColor={useColorModeValue('gray.200', 'gray.900')}
+        borderColor={useColorModeValue('white.200', 'white.900')}
         align={'center'}
       >
         <Flex
@@ -60,7 +60,7 @@ export default function WithSubnavigation() {
             fontFamily={'heading'}
             color={useColorModeValue('gray.800', 'white')}
           >
-            Logo
+            Tiny Treasure Care
           </Text>
 
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
@@ -256,16 +256,18 @@ const MobileNavItem = ({ label, children, href }) => {
 };
 
 const NAV_ITEMS = [
-  {
-    label: 'Carers',
-    href: '#',
-  },
-  {
-    label: 'Parents',
-    href: '/searchcarers',
-  },
+  // {
+  //   label: 'Carers',
+  //   href: '#',
+  // },
+  // {
+  //   label: 'Parents',
+  //   href: '/searchcarers',
+  // },
   {
     label: 'About',
     href: '/about',
   },
+
+
 ];
