@@ -35,18 +35,12 @@ import {
 import { IconType } from 'react-icons';
 import { ReactText } from 'react';
 import { useRouteMatch } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
-
-const LinkItems = [
-  { name: 'Home', icon: FiHome, path: '/carers' },
-  { name: 'My Requests', icon: FiStar, path: '/my-requests' }
-];
-
-export default function SideBar({
-  children,
-}) {
+export default function SideBar({ children }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   let { path, url } = useRouteMatch();
+
   return (
     <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
       <SidebarContent
@@ -61,7 +55,8 @@ export default function SideBar({
         onClose={onClose}
         returnFocusOnClose={false}
         onOverlayClick={onClose}
-        size="full">
+        size="full"
+      >
         <DrawerContent>
           <SidebarContent onClose={onClose} />
         </DrawerContent>
@@ -75,9 +70,17 @@ export default function SideBar({
   );
 }
 
+const SidebarContent = ({ onClose, url, ...rest }) => {
+  const LinkItems = () => {
+    const userType = localStorage.getItem('userType');
 
-
-const SidebarContent = ({ onClose,url, ...rest }) => {
+    return userType == 'PARENT'
+      ? [
+          { name: 'Home', icon: FiHome, path: '/carers' },
+          { name: 'My Requests', icon: FiStar, path: '/my-requests' },
+        ]
+      : [{ name: 'My Jobs', icon: FiStar, path: '/my-jobs' }];
+  };
   return (
     <Box
       transition="3s ease"
@@ -87,15 +90,16 @@ const SidebarContent = ({ onClose,url, ...rest }) => {
       w={{ base: 'full', md: 60 }}
       pos="fixed"
       h="full"
-      {...rest}>
+      {...rest}
+    >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
           Logo
         </Text>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
-      {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon} url={url+link.path}>
+      {LinkItems().map(link => (
+        <NavItem key={link.name} icon={link.icon} url={url + link.path}>
           {link.name}
         </NavItem>
       ))}
@@ -103,8 +107,7 @@ const SidebarContent = ({ onClose,url, ...rest }) => {
   );
 };
 
-
-const NavItem = ({ icon, url, children, ...rest } ) => {
+const NavItem = ({ icon, url, children, ...rest }) => {
   return (
     <Link href={url} style={{ textDecoration: 'none' }}>
       <Flex
@@ -118,7 +121,8 @@ const NavItem = ({ icon, url, children, ...rest } ) => {
           bg: 'cyan.400',
           color: 'white',
         }}
-        {...rest}>
+        {...rest}
+      >
         {icon && (
           <Icon
             mr="4"
@@ -135,8 +139,9 @@ const NavItem = ({ icon, url, children, ...rest } ) => {
   );
 };
 
-
 const MobileNav = ({ onOpen, ...rest }) => {
+  const history = useHistory();
+
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -147,7 +152,8 @@ const MobileNav = ({ onOpen, ...rest }) => {
       borderBottomWidth="1px"
       borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
       justifyContent={{ base: 'space-between', md: 'flex-end' }}
-      {...rest}>
+      {...rest}
+    >
       <IconButton
         display={{ base: 'flex', md: 'none' }}
         onClick={onOpen}
@@ -160,23 +166,25 @@ const MobileNav = ({ onOpen, ...rest }) => {
         display={{ base: 'flex', md: 'none' }}
         fontSize="2xl"
         fontFamily="monospace"
-        fontWeight="bold">
+        fontWeight="bold"
+      >
         Logo
       </Text>
 
       <HStack spacing={{ base: '0', md: '6' }}>
-        <IconButton
+        {/* <IconButton
           size="lg"
           variant="ghost"
           aria-label="open menu"
           icon={<FiBell />}
-        />
+        /> */}
         <Flex alignItems={'center'}>
           <Menu>
             <MenuButton
               py={2}
               transition="all 0.3s"
-              _focus={{ boxShadow: 'none' }}>
+              _focus={{ boxShadow: 'none' }}
+            >
               <HStack>
                 <Avatar
                   size={'sm'}
@@ -188,10 +196,11 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   display={{ base: 'none', md: 'flex' }}
                   alignItems="flex-start"
                   spacing="1px"
-                  ml="2">
-                  <Text fontSize="sm">Justina Clark</Text>
+                  ml="2"
+                >
+                  <Text fontSize="sm">{localStorage.getItem('firstName')}</Text>
                   <Text fontSize="xs" color="gray.600">
-                    Admin
+                    {localStorage.getItem('userType')}
                   </Text>
                 </VStack>
                 <Box display={{ base: 'none', md: 'flex' }}>
@@ -201,12 +210,20 @@ const MobileNav = ({ onOpen, ...rest }) => {
             </MenuButton>
             <MenuList
               bg={useColorModeValue('white', 'gray.900')}
-              borderColor={useColorModeValue('gray.200', 'gray.700')}>
-              <MenuItem>Profile</MenuItem>
+              borderColor={useColorModeValue('gray.200', 'gray.700')}
+            >
+              {/* <MenuItem>Profile</MenuItem>
               <MenuItem>Settings</MenuItem>
-              <MenuItem>Billing</MenuItem>
-              <MenuDivider />
-              <MenuItem>Sign out</MenuItem>
+              <MenuItem>Billing</MenuItem> */}
+              {/* <MenuDivider /> */}
+              <MenuItem
+                onClick={() => {
+                  localStorage.clear();
+                  history.replace('/');
+                }}
+              >
+                Sign out
+              </MenuItem>
             </MenuList>
           </Menu>
         </Flex>
