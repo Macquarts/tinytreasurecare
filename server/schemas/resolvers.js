@@ -114,17 +114,16 @@ const resolvers = {
 
       return jobPost;
     },
-    updateJobRequest: async (parent, { jobId, jobStatus }) => {
+    updateJobRequest: async (parent, { jobId, jobStatus }, context) => {
       console.log(jobId, jobStatus);
       if (!context.user) {
         throw new AuthenticationError('Something went wrong');
       }
-      return {
-        _id: jobId,
-        carerId: context.user._id,
-        parentId: '782368',
-        jobStatus,
-      };
+      const job = await JobPost.findById(jobId);
+      console.log(job);
+      const updatedJob = await JobPost.findByIdAndUpdate(jobId, {jobStatus: jobStatus});
+      console.log(updatedJob);
+      return updatedJob;
     },
   },
 };
