@@ -28,7 +28,7 @@ import {
               Back
             </Button>
             <Heading size="lg" marginBottom="10">
-              How soon you are available?
+              Please indicate when you would be availabe:
             </Heading>
           </Stack>
   

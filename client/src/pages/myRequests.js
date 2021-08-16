@@ -27,6 +27,7 @@ function Card(props) {
     careType,
     timeType,
     experienceYears,
+    skillsandqualifications,
     _id,
     email
   } = props.data.carerId || {};
@@ -95,18 +96,18 @@ function Card(props) {
           color={useColorModeValue('gray.700', 'gray.400')}
           px={3}
         >
-          I am able to <strong>{careType}</strong> Carer. I am available{' '}
+          I am able to <strong>{careType}</strong> care for your child/children. I am available{' '}
           <strong>{timeType}</strong>.
           {experienceYears !== 'ANY' &&
             `I have ${experienceYears}
           years of experience and `}
-          I can care for <strong>{ageType}</strong>.
+          I can care for <strong>{ageType}</strong>. I have all the certificates <strong>{skillsandqualifications}</strong>. Hourley Rate of $25.
          
         </Text>
         </Stack>
         
         <Stack mt={8} direction={'row'} spacing={4}>
-          {jobStatus=='PENDING' ? <Button
+          {jobStatus==='PENDING' ? <Button
             flex={1}
             fontSize={'sm'}
             rounded={'full'}

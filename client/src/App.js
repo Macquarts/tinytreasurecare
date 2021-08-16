@@ -43,6 +43,8 @@ import SignIn from './pages/signin';
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
   uri: '/graphql',
+  // uri:'http://localhost:3001/graphql',
+ 
 });
 
 const authLink = setContext((_, { headers }) => {
