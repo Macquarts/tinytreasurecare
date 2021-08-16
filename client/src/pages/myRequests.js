@@ -100,8 +100,8 @@ function Card(props) {
           <strong>{timeType}</strong>.
           {experienceYears !== 'ANY' &&
             `I have ${experienceYears}
-          of experience and `}
-          I can care for <strong>{ageType}</strong>. Have all the certificates <strong>{skillsandqualifications}</strong>. Hourley Rate of $25.
+          years of experience and `}
+          I can care for <strong>{ageType}</strong>. I have all the certificates <strong>{skillsandqualifications}</strong>. Hourley Rate of $25.
          
         </Text>
         </Stack>
