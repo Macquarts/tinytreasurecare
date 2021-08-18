@@ -1,9 +1,22 @@
 # Tiny-Treasure-Care
 
 ## Description
-This application helps you locate the best nannies and babysitters. Tiny treasure care is not an agency but a platform that lets you find a range of great babysitters and nannies. 
+This application helps you locate the best nannies and babysitters. Tiny treasure care is not an agency but a platform that lets you find a range of great babysitters and nannies. The application
 
-This application was built using React and Chakra UI for the front end, GraphQl, Node.js, Apollo server. Mongo Db and Mongoose ODM for the database. 
+
+### Technology Used:
+This application is a MERN Stack Application
+- MongoDb
+- Express
+- React 
+- Node.js
+-Mongoose
+-GraphQL Platform- Apollo GraphQL
+-Chakra-UI
+-JSON web Token ( JWT)
+- Bcrypt
+- Heroku
+
 
 You can view the Heroku application for "Tiny Treasure Care':  https://tinytreasurecare.herokuapp.com/
 ### Table of Contents
@@ -23,6 +36,7 @@ You can view the Heroku application for "Tiny Treasure Care':  https://tinytreas
 #### Usage
  Once the files have been pulled , run the application  with 'npm run develop'  command in your terminal, for both client and server to start. You will then be able to view it in the default browser. 
  
+ ##### Screenshots of Deployed application
  
 <img width="1247" alt="ttc-1" src="https://user-images.githubusercontent.com/75565115/129841928-306b29c2-bc97-4695-b2a6-6e10d8bac591.png">
 <img width="1278" alt="ttc2" src="https://user-images.githubusercontent.com/75565115/129841944-bacf9495-99ad-4989-94aa-633371a8ceee.png">
@@ -37,10 +51,10 @@ Please contact me with a detailed description as to how you would like to contri
 
 #### Credits
 
-https://www.mongodb.com
-https://chakra-ui.com
-https://apollographql.com/docs/react
-https://www.canva.com
+- https://www.mongodb.com
+- https://chakra-ui.com
+- https://apollographql.com/docs/react
+- https://www.canva.com
 
 
 #### Tests
