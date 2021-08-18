@@ -9,12 +9,12 @@ You can view the Heroku application for "Tiny Treasure Care':
 
 ### Table of Contents
 
--Installation
--Usage
--Contribution
--Credits
--Tests
--License
+- Installation
+- Usage
+- Contribution
+- Credits
+- Tests
+- License
 
 
 #### Installation
