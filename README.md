@@ -5,8 +5,7 @@ This application helps you locate the best nannies and babysitters. Tiny treasur
 
 This application was built using React and Chakra UI for the front end, GraphQl, Node.js, Apollo server. Mongo Db and Mongoose ODM for the database. 
 
-You can view the Heroku application for "Tiny Treasure Care':  
-
+You can view the Heroku application for "Tiny Treasure Care':  https://tinytreasurecare.herokuapp.com/
 ### Table of Contents
 
 - Installation
