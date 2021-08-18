@@ -25,7 +25,7 @@ You can view the Heroku application for "Tiny Treasure Care':  https://tinytreas
 - Usage
 - Contribution
 - Credits
-- Tests
+- Questions
 - License
 
 
@@ -57,7 +57,7 @@ Please contact me with a detailed description as to how you would like to contri
 - https://www.canva.com
 
 
-#### Tests
+#### Questions
   
 Please contact me if you need clarifications/ need to contribute/ or questions at:
 - https://github.com/Macquarts/
