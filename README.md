@@ -22,6 +22,14 @@ You can view the Heroku application for "Tiny Treasure Care':  https://tinytreas
 
 #### Usage
  Once the files have been pulled , run the application  with 'npm run develop'  command in your terminal, for both client and server to start. You will then be able to view it in the default browser. 
+ 
+ 
+<img width="1247" alt="ttc-1" src="https://user-images.githubusercontent.com/75565115/129841928-306b29c2-bc97-4695-b2a6-6e10d8bac591.png">
+<img width="1278" alt="ttc2" src="https://user-images.githubusercontent.com/75565115/129841944-bacf9495-99ad-4989-94aa-633371a8ceee.png">
+<img width="1296" alt="ttc3" src="https://user-images.githubusercontent.com/75565115/129841949-b18749f0-f8ea-4ab5-a351-27c694a91f55.png">
+<img width="1236" alt="ttc4" src="https://user-images.githubusercontent.com/75565115/129841955-514497a6-aa1e-47b5-9e8a-58c4fbcbf8f8.png">
+<img width="1270" alt="ttc5" src="https://user-images.githubusercontent.com/75565115/129841971-18d2830b-a297-41b3-bc05-f654fa930d86.png">
+
 
 #### Contribution
 
