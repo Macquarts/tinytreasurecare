@@ -33,7 +33,7 @@ You can view the Heroku application for "Tiny Treasure Care':  https://tinytreas
 
 #### Contribution
 
-Please contact me with a detailed description of how you would like to contribute to this project.
+Please contact me with a detailed description as to how you would like to contribute to this project.
 
 #### Credits
 
